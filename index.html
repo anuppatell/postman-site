@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - PostMon API Client</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            line-height: 1.6; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            color: #1d1d1f; 
+            background: #f5f5f7;
+        }
+        .container { background: white; border-radius: 18px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { font-size: 32px; font-weight: 600; margin-bottom: 8px; color: #1d1d1f; }
+        .subtitle { font-size: 17px; color: #6e6e73; margin-bottom: 40px; }
+        .form-group { margin-bottom: 24px; }
+        label { display: block; font-size: 17px; font-weight: 500; margin-bottom: 8px; color: #1d1d1f; }
+        input, textarea { 
+            width: 100%; padding: 16px; border: 2px solid #e5e5e7; border-radius: 12px; 
+            font-size: 17px; font-family: inherit; transition: all 0.2s; box-sizing: border-box;
+        }
+        input:focus, textarea:focus { outline: none; border-color: #007aff; box-shadow: 0 0 0 3px rgba(0,122,255,0.1); }
+        textarea { resize: vertical; min-height: 120px; }
+        .submit-btn { 
+            background: linear-gradient(135deg, #007aff 0%, #0056b3 100%); 
+            color: white; border: none; padding: 18px 32px; border-radius: 12px; 
+            font-size: 17px; font-weight: 600; cursor: pointer; width: 100%; 
+            transition: all 0.2s;
+        }
+        .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(0,122,255,0.3); }
+        .submit-btn:active { transform: translateY(0); }
+        .success-message, .error-message { 
+            padding: 20px; border-radius: 12px; margin: 20px 0; display: none; 
+            font-size: 17px; text-align: center;
+        }
+        .success-message { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error-message { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .support-info { background: #f2f2f7; padding: 24px; border-radius: 12px; margin-top: 24px; }
+        .email-link { color: #007aff; font-weight: 500; text-decoration: none; }
+        .email-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Get in Touch</h1>
+        <p class="subtitle">We're here to help with PostMon API Client. Share your feedback, report issues, or ask questions.</p>
+        
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="your-email@example.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required placeholder="e.g. Bug report, Feature request">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" required placeholder="Describe your query about PostMon..."></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+        
+        <div id="successMessage" class="success-message">
+            ✅ Thank you! Your message has been sent successfully. We'll respond within 24-48 hours.
+        </div>
+        
+        <div id="errorMessage" class="error-message">
+            ❌ Something went wrong. Please try again or email us directly.
+        </div>
+        
+        <div class="support-info">
+            <p><strong>Need immediate help?</strong> Email us directly at <a href="mailto:connect@elevarelab.site" class="email-link">connect@elevarelab.site</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Hide previous messages
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Simulate form submission delay
+            setTimeout(() => {
+                // Simulate success (in production, send to your backend)
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('contactForm').reset();
+                
+                // Scroll to success message
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
