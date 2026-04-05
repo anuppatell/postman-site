@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy – PS2 Emulator</title>
+<style>
+  :root {
+    --bg: #0e0e10;
+    --surface: #16161a;
+    --surface-2: #1c1c21;
+    --border: #2a2a30;
+    --text: #e2e2e6;
+    --text-muted: #8a8a96;
+    --text-faint: #4a4a55;
+    --accent: #0064f0;
+    --accent-glow: rgba(0,100,240,0.18);
+    --ps-blue: #0050c8;
+    --radius: 12px;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100dvh;
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(14,14,16,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .topbar-logo {
+    width: 32px; height: 32px;
+    background: var(--ps-blue);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 900; color: #fff;
+    letter-spacing: -0.5px;
+    flex-shrink: 0;
+  }
+
+  .topbar-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.2px;
+  }
+
+  .topbar-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 64px 24px 48px;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(0,100,240,0.25);
+    padding: 5px 14px;
+    border-radius: 99px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 span {
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto 28px;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .meta-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .meta-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 6px #22c55e;
+  }
+
+  /* ── Content ── */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* Table of contents */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 40px;
+  }
+
+  .toc-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 12px;
+  }
+
+  .toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .toc-list a {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.15s;
+  }
+
+  .toc-list a:hover { color: var(--accent); }
+
+  .toc-list a::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .section-header {
+    padding: 18px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface-2);
+  }
+
+  .section-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    background: rgba(0,100,240,0.12);
+    border: 1px solid rgba(0,100,240,0.2);
+  }
+
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.2px;
+  }
+
+  .section-body {
+    padding: 20px 24px;
+  }
+
+  .section-body p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .section-body p:last-child { margin-bottom: 0; }
+
+  .section-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .section-body ul li {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .section-body ul li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--text-faint);
+  }
+
+  .highlight-box {
+    background: var(--accent-glow);
+    border: 1px solid rgba(0,100,240,0.2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #a8c4f8;
+    margin: 14px 0;
+    line-height: 1.6;
+  }
+
+  .green-box {
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.18);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #86efac;
+    margin: 14px 0;
+    line-height: 1.6;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Contact card */
+  .contact-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .contact-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .contact-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  .contact-btn:hover {
+    background: #0050c8;
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-faint);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .footer span { color: var(--text-muted); }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 12px 0;
+  }
+
+  @media (max-width: 480px) {
+    .topbar { padding: 12px 16px; }
+    .hero { padding: 40px 16px 32px; }
+    .content { padding: 0 16px 60px; }
+    .section-body { padding: 16px; }
+    .section-header { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <div class="topbar-logo">PS2</div>
+  <div class="topbar-title">PS2 Emulator</div>
+  <div class="topbar-badge">Privacy Policy</div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">Legal Document</div>
+  <h1>Privacy <span>Policy</span></h1>
+  <p class="hero-sub">We believe privacy should be simple. Here's exactly what PS2 Emulator collects, uses, and never touches.</p>
+  <div class="hero-meta">
+    <div class="meta-chip"><div class="meta-dot"></div> Effective: April 3, 2026</div>
+    <div class="meta-chip">· App: PS2 Emulator</div>
+    <div class="meta-chip">· Developer: Fronixsoft</div>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <ul class="toc-list">
+      <li><a href="#collection">Information We Collect</a></li>
+      <li><a href="#usage">How We Use Information</a></li>
+      <li><a href="#third-party">Third Party Access</a></li>
+      <li><a href="#game-files">Your Game Files</a></li>
+      <li><a href="#optout">Opt-Out Rights</a></li>
+      <li><a href="#retention">Data Retention</a></li>
+      <li><a href="#children">Children's Privacy</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#changes">Changes to This Policy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+  </div>
+
+  <!-- Overview -->
+  <div class="green-box">
+    ✦ &nbsp;Short version: PS2 Emulator does not collect your game files, save states, or any gameplay data. Your files stay on your device.
+  </div>
+
+  <!-- 1. Collection -->
+  <div class="section" id="collection">
+    <div class="section-header">
+      <div class="section-icon">📡</div>
+      <div class="section-title">Information We Collect</div>
+    </div>
+    <div class="section-body">
+      <p>When you download and use PS2 Emulator, basic technical information may be collected automatically. This may include:</p>
+      <ul>
+        <li>Your device's Internet Protocol (IP) address</li>
+        <li>Device type and operating system version</li>
+        <li>App usage sessions — time, date, and duration</li>
+        <li>App crash reports and diagnostic data</li>
+      </ul>
+      <p>PS2 Emulator does <strong style="color:#fff;">not</strong> collect precise location data, contacts, photos, or any personal identifiable information beyond what is listed above.</p>
+    </div>
+  </div>
+
+  <!-- 2. Usage -->
+  <div class="section" id="usage">
+    <div class="section-header">
+      <div class="section-icon">🔍</div>
+      <div class="section-title">How We Use Information</div>
+    </div>
+    <div class="section-body">
+      <p>The information collected is used solely to:</p>
+      <ul>
+        <li>Improve app performance and stability</li>
+        <li>Diagnose crashes and technical issues</li>
+        <li>Understand general usage patterns to guide future development</li>
+        <li>Send important notices about the app when necessary</li>
+      </ul>
+      <p>We do not use your data for advertising, profiling, or sell it to any third party for commercial purposes.</p>
+    </div>
+  </div>
+
+  <!-- 3. Third Party -->
+  <div class="section" id="third-party">
+    <div class="section-header">
+      <div class="section-icon">🔗</div>
+      <div class="section-title">Third Party Access</div>
+    </div>
+    <div class="section-body">
+      <p>Only aggregated, anonymized data may be shared with trusted third-party services that assist in maintaining and improving the Application. These parties are contractually obligated not to use your data for any independent purpose.</p>
+      <p>We may disclose information only when:</p>
+      <ul>
+        <li>Required by law or a valid legal process (e.g. subpoena)</li>
+        <li>Necessary to protect the rights or safety of users or the public</li>
+        <li>Required to investigate fraud or respond to a government request</li>
+      </ul>
+      <div class="highlight-box">
+        ℹ️ &nbsp;PS2 Emulator uses the open-source <strong>Play! PS2 emulation core</strong>. The Play! project is a separate open-source effort and does not receive any user data from this application. Learn more at <a href="https://purei.org/" target="_blank">purei.org</a>.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Game Files -->
+  <div class="section" id="game-files">
+    <div class="section-header">
+      <div class="section-icon">💿</div>
+      <div class="section-title">Your Game Files</div>
+    </div>
+    <div class="section-body">
+      <p>PS2 Emulator allows you to import your own PS2 game files (ISO, BIN, CHD, CSO, ISZ, ELF) from your device's local storage.</p>
+      <div class="green-box">
+        ✓ &nbsp;Your game files are processed entirely on-device. They are never uploaded to our servers, shared with third parties, or transmitted over the internet in any form.
+      </div>
+      <p>Save states, game progress, and any data generated during gameplay remain stored locally on your device and are solely under your control.</p>
+    </div>
+  </div>
+
+  <!-- 5. Opt-Out -->
+  <div class="section" id="optout">
+    <div class="section-header">
+      <div class="section-icon">🚫</div>
+      <div class="section-title">Opt-Out Rights</div>
+    </div>
+    <div class="section-body">
+      <p>You can stop all data collection by simply uninstalling PS2 Emulator from your device. Use the standard uninstall process available on your iOS device or via the App Store.</p>
+      <p>Uninstalling the app will remove all locally stored app data, including your imported game library and any saved preferences.</p>
+    </div>
+  </div>
+
+  <!-- 6. Retention -->
+  <div class="section" id="retention">
+    <div class="section-header">
+      <div class="section-icon">🗄️</div>
+      <div class="section-title">Data Retention</div>
+    </div>
+    <div class="section-body">
+      <p>Any user-provided data is retained only for as long as you use the Application and for a reasonable period thereafter for operational purposes.</p>
+      <p>To request deletion of any data associated with your use of PS2 Emulator, please contact us at the email below. We will respond within a reasonable timeframe.</p>
+    </div>
+  </div>
+
+  <!-- 7. Children -->
+  <div class="section" id="children">
+    <div class="section-header">
+      <div class="section-icon">🧒</div>
+      <div class="section-title">Children's Privacy</div>
+    </div>
+    <div class="section-body">
+      <p>PS2 Emulator is not directed at children under the age of 13. We do not knowingly solicit or collect personal information from children under 13.</p>
+      <p>If you are a parent or guardian and believe your child has provided personal information through the Application, please contact us immediately so we can take appropriate action.</p>
+      <p>Users must be at least 16 years of age to consent to the processing of their personal data (or have a parent/guardian provide consent on their behalf, where applicable by local law).</p>
+    </div>
+  </div>
+
+  <!-- 8. Security -->
+  <div class="section" id="security">
+    <div class="section-header">
+      <div class="section-icon">🔒</div>
+      <div class="section-title">Security</div>
+    </div>
+    <div class="section-body">
+      <p>Fronixsoft takes the security of your information seriously. We implement physical, electronic, and procedural safeguards to protect any information we process.</p>
+      <p>However, no method of transmission or storage is 100% secure. While we strive to protect your data using commercially acceptable means, we cannot guarantee absolute security.</p>
+    </div>
+  </div>
+
+  <!-- 9. Changes -->
+  <div class="section" id="changes">
+    <div class="section-header">
+      <div class="section-icon">📝</div>
+      <div class="section-title">Changes to This Policy</div>
+    </div>
+    <div class="section-body">
+      <p>This Privacy Policy may be updated from time to time. When changes are made, the updated policy will be published on this page with a revised effective date.</p>
+      <p>Continued use of PS2 Emulator after any changes constitutes your acceptance of the updated Privacy Policy. We recommend reviewing this page periodically.</p>
+      <p style="color: var(--text-faint); font-size: 13px;">Current effective date: <span style="color: var(--text-muted);">April 3, 2026</span></p>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact-card" id="contact">
+    <h3>Questions or Requests?</h3>
+    <p>If you have any questions about this Privacy Policy or want to request data deletion, reach out to us directly.</p>
+    <a href="mailto:fronixwabox@gmail.com" class="contact-btn">
+      ✉️ &nbsp;fronixwabox@gmail.com
+    </a>
+  </div>
+
+  <!-- Sony disclaimer -->
+  <div style="margin-top: 32px; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-size: 12px; color: var(--text-faint); line-height: 1.6;">
+    PlayStation® and PlayStation®2 are registered trademarks of Sony Interactive Entertainment Inc. PS2 Emulator is not affiliated with, endorsed by, or sponsored by Sony Interactive Entertainment. All trademarks are the property of their respective owners.
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <span>PS2 Emulator</span> · Privacy Policy · Effective April 3, 2026<br>
+  Developed by Fronixsoft · <a href="mailto:fronixwabox@gmail.com">fronixwabox@gmail.com</a>
+</div>
+
+</body>
+</html>
