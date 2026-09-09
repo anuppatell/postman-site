@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Node Pocket</title>
+<meta name="description" content="Privacy policy for Node Pocket, a JavaScript development environment for iPhone and iPad. No accounts, no analytics, no tracking.">
+<meta name="theme-color" content="#0B0E14" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<style>
+  /* Palette lifted verbatim from the app's Theme.swift so the page and the
+     product are the same object. Light values first, dark under the media
+     query, exactly as the app resolves them. */
+  :root {
+    --bg:        #FFFFFF;
+    --surface:   #F7F9FC;
+    --elevated:  #FFFFFF;
+    --inset:     #F2F5F9;
+    --hairline:  #E3E8EF;
+    --border:    #D4DBE5;
+    --text:      #10151F;
+    --text-2:    #55617A;
+    --text-3:    #8895AB;
+    --accent:    #14A45C;
+    --amber:     #B45309;
+    --blue:      #2563EB;
+    --radius:    10px;
+    --radius-sm: 6px;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:       #0B0E14;
+      --surface:  #10141D;
+      --elevated: #161B26;
+      --inset:    #080A0F;
+      --hairline: #1C2331;
+      --border:   #252F42;
+      --text:     #E6EDF3;
+      --text-2:   #97A3B6;
+      --text-3:   #5D6B80;
+      --accent:   #3DDC84;
+      --amber:    #F0B429;
+      --blue:     #4C8DFF;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.62 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  /* Machine-made things are monospace, as everywhere in the app. */
+  code, .mono, .badge, .chip, .kicker, .section-label, .status {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  /* ── App chrome: a fixed title bar with a hairline, like the workspace ── */
+  .titlebar {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .titlebar-inner {
+    max-width: 720px; margin: 0 auto; padding: 0 14px;
+    height: 46px; display: flex; align-items: center; gap: 10px;
+  }
+  .wordmark {
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--text-3); font-weight: 600;
+  }
+  .titlebar .spacer { flex: 1; }
+  .status {
+    font-size: 11px; color: var(--text-3);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 26px 14px 80px; }
+
+  /* ── Title block, matching the app's screen headers ── */
+  .title-block { margin-bottom: 22px; }
+  h1 { font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 6px; font-weight: 700; }
+  .lede { margin: 0; color: var(--text-2); font-size: 15px; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .badge {
+    font-size: 11px; letter-spacing: .02em;
+    color: var(--text-3);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 3px 7px; background: var(--surface);
+  }
+  .badge.on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+
+  /* ── SectionLabel: uppercase mono, like every section header in the app ── */
+  .section-label {
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--text-3); font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+    margin: 34px 0 8px; padding: 0 2px;
+  }
+  .section-label .num {
+    color: var(--accent); font-size: 11px;
+  }
+
+  /* ── IDEPanel: flat surface, hairline border, rounded ── */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: 14px;
+  }
+  .panel > *:first-child { margin-top: 0; }
+  .panel > *:last-child { margin-bottom: 0; }
+  .panel p { margin: 0 0 10px; }
+  .panel p:last-child { margin-bottom: 0; }
+
+  /* Rows separated by hairlines inset to the text column, as in the app's lists */
+  .rows { display: flex; flex-direction: column; }
+  .row { padding: 12px 0; border-bottom: 1px solid var(--hairline); }
+  .row:first-child { padding-top: 0; }
+  .row:last-child { border-bottom: none; padding-bottom: 0; }
+  .row-title { font-weight: 600; margin: 0 0 3px; font-size: 15px; }
+  .row-sub { margin: 0; color: var(--text-2); font-size: 14px; }
+
+  /* Console-style block for the network table */
+  .console {
+    background: var(--inset);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .console-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px; border-bottom: 1px solid var(--hairline);
+    background: var(--surface);
+    font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  .net { padding: 4px 12px 10px; }
+  .net-item { padding: 11px 0; border-bottom: 1px solid var(--hairline); }
+  .net-item:last-child { border-bottom: none; }
+  .net-when { font-size: 14px; margin: 0 0 5px; }
+  .net-host {
+    display: inline-block; font-size: 12.5px; color: var(--blue);
+    background: color-mix(in srgb, var(--blue) 12%, transparent);
+    border-radius: var(--radius-sm); padding: 2px 7px; margin: 0 0 6px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  .net-sent { margin: 0; font-size: 14px; color: var(--text-2); }
+
+  /* Callout, in the app's amber "notice" register */
+  .callout {
+    border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--border));
+    background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+    border-radius: var(--radius); padding: 14px; margin: 20px 0;
+  }
+  .callout p { margin: 0; }
+  .callout strong { color: var(--text); }
+
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 18px; }
+  li { margin: 6px 0; }
+  li strong { color: var(--text); }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+  a:hover { border-bottom-color: var(--accent); }
+  code {
+    font-size: 13px; background: var(--inset); color: var(--text-2);
+    border: 1px solid var(--hairline); border-radius: 4px; padding: 1px 5px;
+  }
+
+  /* Status bar at the foot, mirroring the app's */
+  .statusbar {
+    margin-top: 44px; border-top: 1px solid var(--hairline);
+    padding-top: 12px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+    font-size: 11.5px; color: var(--text-3);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  .statusbar .spacer { flex: 1; }
+  footer { margin-top: 18px; font-size: 12.5px; color: var(--text-3); line-height: 1.55; }
+
+  @media (max-width: 460px) {
+    .wrap { padding: 20px 12px 64px; }
+    h1 { font-size: 23px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="titlebar">
+  <div class="titlebar-inner">
+    <span class="wordmark">Node&nbsp;Pocket</span>
+    <span class="spacer"></span>
+    <span class="status"><span class="dot"></span>on-device</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="title-block">
+    <h1>Privacy Policy</h1>
+    <p class="lede">Node Pocket does not collect your personal data. Your code, your projects and your databases stay on your device.</p>
+    <div class="meta-row">
+      <span class="badge on">no accounts</span>
+      <span class="badge on">no analytics</span>
+      <span class="badge on">no tracking</span>
+      <span class="badge">effective 9 Sep 2026</span>
+    </div>
+  </div>
+
+  <p>Node Pocket is a JavaScript development environment for iPhone and iPad. It runs a Node.js runtime, a package installer, a git client, a web preview and a database entirely on your device. This policy explains what happens to information when you use it.</p>
+
+  <div class="callout">
+    <p><strong>The short version.</strong> There are no accounts, no analytics, no tracking and no advertising. We operate no servers that receive your data. Everything you write stays on your device unless you deliberately send it somewhere — for example by cloning or pushing to a git repository you control.</p>
+  </div>
+
+  <div class="section-label"><span class="num">01</span> Who we are</div>
+  <div class="panel">
+    <p>Node Pocket is made by <strong>Elevarelab</strong> ("we", "us"). For any question about this policy, contact <a href="mailto:support@elevarelab.site">support@elevarelab.site</a>.</p>
+    <p>Where data protection law applies, we are the data controller for the very limited processing described here.</p>
+  </div>
+
+  <div class="section-label"><span class="num">02</span> What we do not collect</div>
+  <p>We want to be specific, because "we value your privacy" means nothing on its own.</p>
+  <div class="panel">
+    <div class="rows">
+      <div class="row">
+        <p class="row-title">No user accounts</p>
+        <p class="row-sub">You never register, sign in, or give us an email address.</p>
+      </div>
+      <div class="row">
+        <p class="row-title">No analytics or telemetry</p>
+        <p class="row-sub">The app contains no analytics, crash-reporting or attribution SDK of any kind. We do not measure feature usage, sessions or retention.</p>
+      </div>
+      <div class="row">
+        <p class="row-title">No advertising, no tracking</p>
+        <p class="row-sub">We do not track you across apps or websites, and we share nothing with data brokers or advertising networks.</p>
+      </div>
+      <div class="row">
+        <p class="row-title">No servers of ours</p>
+        <p class="row-sub">There is no backend for your app to talk to. There is nowhere for your data to reach us, and we could not read your projects even if asked to.</p>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top:12px">Our App Store privacy declaration states "Data Not Collected" across every category, and the app ships an Apple privacy manifest declaring no collected data types and no tracking.</p>
+
+  <div class="section-label"><span class="num">03</span> What stays on your device</div>
+  <div class="panel">
+    <div class="rows">
+      <div class="row"><p class="row-title">Your projects</p><p class="row-sub">Source files, folders, and anything you create, import or clone.</p></div>
+      <div class="row"><p class="row-title">Installed packages</p><p class="row-sub">The contents of <code>node_modules</code> in each project.</p></div>
+      <div class="row"><p class="row-title">Your databases</p><p class="row-sub">Data written by apps you run through the built-in MongoDB-compatible database, stored as files in the app's Documents folder.</p></div>
+      <div class="row"><p class="row-title">Your settings</p><p class="row-sub">Appearance, editor theme, font size and similar preferences.</p></div>
+      <div class="row"><p class="row-title">Editor state</p><p class="row-sub">Breakpoints, recently opened files and console history.</p></div>
+    </div>
+  </div>
+  <p style="margin-top:12px">Because these files live in the app's Documents folder, they are included in your iPhone or iPad backups if you use iCloud Backup or a computer backup. Those backups are made and protected by Apple under Apple's terms, not by us. Installed <code>node_modules</code> folders are deliberately excluded from backup to save your storage; they can be reinstalled at any time.</p>
+
+  <div class="section-label"><span class="num">04</span> Network connections</div>
+  <p>Node Pocket works offline. It connects to the internet only for the actions below, and only when you trigger them. In each case you are connecting directly to that third party — nothing passes through us.</p>
+
+  <div class="console">
+    <div class="console-head">outbound requests</div>
+    <div class="net">
+      <div class="net-item">
+        <p class="net-when">You search for or install an npm package</p>
+        <span class="net-host">registry.npmjs.org</span>
+        <p class="net-sent">The package name and version you asked for. As with any web request, your IP address is visible to the recipient.</p>
+      </div>
+      <div class="net-item">
+        <p class="net-when">You preview a project that imports packages in the browser, including the built-in React templates</p>
+        <span class="net-host">esm.sh</span>
+        <p class="net-sent">The name and version of the module being loaded.</p>
+      </div>
+      <div class="net-item">
+        <p class="net-when">You clone, browse, pull from or push to GitHub</p>
+        <span class="net-host">github.com · api.github.com</span>
+        <p class="net-sent">The repository you asked for, the content you chose to push, and — if you have added a personal access token for that host — that token, as authentication.</p>
+      </div>
+      <div class="net-item">
+        <p class="net-when">You clone from, or push to, any other git host</p>
+        <span class="net-host">the URL you entered</span>
+        <p class="net-sent">The repository data and, if stored for that host, your access token.</p>
+      </div>
+      <div class="net-item">
+        <p class="net-when">Code <em>you</em> write makes a network request</p>
+        <span class="net-host">wherever your code points</span>
+        <p class="net-sent">Whatever your code sends. You are the developer; the app does not inspect, filter or log this.</p>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top:12px">Each of these services has its own privacy policy, and their handling of your request is governed by it, not by this policy.</p>
+
+  <div class="section-label"><span class="num">05</span> Access tokens</div>
+  <p>If you add a personal access token so you can use a private repository, it is stored in the <strong>iOS Keychain</strong>, the system's encrypted credential store, filed against the specific host it belongs to.</p>
+  <div class="panel">
+    <div class="rows">
+      <div class="row"><p class="row-sub">It is sent only to the host it was stored for. A token for one git host is never sent to another.</p></div>
+      <div class="row"><p class="row-sub">It is never written to logs, the console, exported projects or diagnostics.</p></div>
+      <div class="row"><p class="row-sub">It never reaches us. We have no server and no ability to read it.</p></div>
+      <div class="row"><p class="row-sub">You can remove it in the app at any time, and deleting the app removes it.</p></div>
+    </div>
+  </div>
+
+  <div class="section-label"><span class="num">06</span> Permissions</div>
+  <ul>
+    <li><strong>Local network.</strong> Projects you run can start a web server on the device. iOS may ask for permission the first time a server is reachable on your local network. You can decline; the app's own preview still works.</li>
+    <li><strong>Files.</strong> If you import or export a project, iOS shows its own file picker. The app receives only the folder you choose.</li>
+  </ul>
+  <p>Node Pocket does not request access to your contacts, photos, camera, microphone, location or health data, and contains no code that would use them.</p>
+
+  <div class="section-label"><span class="num">07</span> Information Apple may provide</div>
+  <p>If you choose to share diagnostics with developers in your iOS settings, Apple may give us aggregated crash reports and performance statistics. These come from Apple, are aggregated, and are not linked to your identity by us. If you have opted out with Apple, we receive nothing. Apple also gives us anonymous, aggregated sales and download figures. We do not attempt to identify individual users from any of this.</p>
+
+  <div class="section-label"><span class="num">08</span> Children</div>
+  <p>Node Pocket is a developer tool intended for a general audience and is not directed at children under 13. We do not knowingly collect personal information from anyone, including children.</p>
+
+  <div class="section-label"><span class="num">09</span> Your rights and choices</div>
+  <p>Because we hold no personal data about you, there is nothing for us to export, correct or delete on your behalf. In practical terms:</p>
+  <ul>
+    <li><strong>To delete your data,</strong> delete the projects and databases inside the app, or delete the app, which removes everything it stored including any saved tokens.</li>
+    <li><strong>To stop all network activity,</strong> use the app offline. Only the actions in section 04 need a connection.</li>
+  </ul>
+  <p>If you are in the European Economic Area, the United Kingdom, or a jurisdiction with comparable law such as California, you have rights of access, correction, deletion, portability and objection. You are welcome to exercise them by writing to us; our answer will be that we hold no personal data about you, and we will say so in writing. We do not sell or share personal information, and we never have.</p>
+
+  <div class="section-label"><span class="num">10</span> Changes to this policy</div>
+  <p>If this policy changes, the updated version will be posted at this address with a new effective date. Material changes will also be noted in the app's release notes. Continuing to use the app after a change means you accept the updated policy.</p>
+
+  <div class="section-label"><span class="num">11</span> Contact</div>
+  <div class="panel">
+    <p>Questions about privacy, or about anything in this policy, go to <a href="mailto:support@elevarelab.site">support@elevarelab.site</a>. We answer privacy questions directly.</p>
+  </div>
+
+  <div class="statusbar">
+    <span><span class="dot" style="display:inline-block;vertical-align:middle;margin-right:6px"></span>node pocket</span>
+    <span>privacy v1.0</span>
+    <span class="spacer"></span>
+    <span>updated 9 Sep 2026</span>
+  </div>
+
+  <footer>
+    Node Pocket is an independent product and is not affiliated with, endorsed by, or sponsored by the OpenJS Foundation, GitHub, npm, Inc. or MongoDB, Inc. Node.js is a trademark of the OpenJS Foundation. MongoDB is a trademark of MongoDB, Inc. These names are used only to describe compatibility.
+  </footer>
+
+</div>
+</body>
+</html>
